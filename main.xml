@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:text="DKZIN PANEL 🥷"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/tokenInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Token do Discord"
+        android:textColorHint="#777777"
+        android:textColor="#ffffff"
+        android:background="@drawable/input_dark"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/delayInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Delay (ms)"
+        android:inputType="number"
+        android:textColorHint="#777777"
+        android:textColor="#ffffff"
+        android:background="@drawable/input_dark"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INICIAR ATAQUE"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:backgroundTint="#E53935"
+        android:padding="14dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:text="Status: Aguardando..."
+        android:textColor="#00E676"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
