@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Bot Hosting</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      background: linear-gradient(to right, #0a0a0a, #1a1a1a);
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.1), transparent),
+                  radial-gradient(circle, rgba(255, 50, 50, 0.1), transparent);
+      backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+    .window {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+      animation: fadeIn 1s ease;
+    }
+    .tabs {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #f00;
+      color: #f00;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: #f00;
+      color: #000;
+    }
+    .tab-content {
+      display: none;
+      width: 90%;
+      max-width: 1000px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #f00;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #f00;
+      animation: slideIn 0.8s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #111;
+      border: 1px solid #f00;
+      border-radius: 10px;
+      color: #f00;
+    }
+    button {
+      background: #f00;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="window">
+    <div class="tabs">
+      <div class="tab-btn" onclick="switchTab('host')">Hospedar</div>
+      <div class="tab-btn" onclick="switchTab('config')">Configuração</div>
+      <div class="tab-btn" onclick="switchTab('logs')">Logs</div>
+      <div class="tab-btn" onclick="switchTab('credit')">Créditos</div>
+    </div>
+
+    <div id="host" class="tab-content active">
+      <h2>Hospedar Bot</h2>
+      <input type="text" id="token" placeholder="Token do bot">
+      <input type="file" id="source" accept=".zip">
+      <button onclick="startBot()">Iniciar Bot</button>
+    </div>
+
+    <div id="config" class="tab-content">
+      <h2>Configuração do Bot</h2>
+      <input type="text" id="botname" placeholder="Nome do Bot">
+      <input type="file" id="avatar" accept="image/*">
+      <input type="file" id="banner" accept="image/*">
+      <textarea id="bio" placeholder="Biografia"></textarea>
+      <button onclick="saveConfig()">Salvar Configuração</button>
+    </div>
+
+    <div id="logs" class="tab-content">
+      <h2>Logs & Registros</h2>
+      <textarea readonly id="logBox" rows="10" placeholder="Logs aparecerão aqui..."></textarea>
+    </div>
+
+    <div id="credit" class="tab-content">
+      <h2>Créditos</h2>
+      <p>Desenvolvido por DKzin - Free Bot Host</p>
+      <p>Interface feita por MENOR DK</p>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+    function startBot() {
+      const token = document.getElementById('token').value;
+      alert("Simulação: Bot iniciado com token " + token);
+    }
+    function saveConfig() {
+      alert("Configurações salvas!");
+    }
+  </script>
+</body>
+</html>
