@@ -4,17 +4,9 @@ local Window = redzlib:MakeWindow({
 	SubTitle = "by DKZIN",
 	SaveFolder = "pathv16.lua"
 })
-Window:AddMinimizeButton({
-	Button = "rbxassetid://14041446096"
-})
-
-local PathTab = Window:MakeTab({
-	Title = "menu",
-	Icon = "code"
-})
-PathTab:AddSection({
-	Title = "OPCOES - PRINCIPAIS"
-})
+Window:AddMinimizeButton({Button = {Image = "rbxassetid://14041446096"}, Corner = {CornerRadius = UDim.new(0.3, 1)}})
+local PathTab = Window:MakeTab({"menu", "code2"})
+PathTab:AddSection({"OPCOES - PRINCIPAIS"})
 
 local Players = game:GetService("Players")
 local PathfindingService = game:GetService("PathfindingService")
@@ -25,7 +17,7 @@ local following, autoFollow, autoJump, noSit = false, false, false, false
 local targetName = ""
 local currentLines, headLine, lastHighlight = {}, nil, nil
 local lastJumpTime = 0
-local jumpCooldown = 1.0
+local jumpCooldown = 0.8
 
 local function getRoot(c) return c and (c:FindFirstChild("HumanoidRootPart") or c.PrimaryPart) end
 local function getHumanoid(c) return c and c:FindFirstChildWhichIsA("Humanoid") end
@@ -318,7 +310,7 @@ InfoTab:AddDiscordInvite({
 })
 
 local Section = InfoTab:AddSection({"developers"})
-local Paragraph = InfoTab:AddParagraph({"CREDITOS", "- UI FEITA POR DK\n- CODIGO FEITO POR DK\n- T.C.C"})
+local Paragraph = InfoTab:AddParagraph({"CREDITOS", "- Dev - Dkzin\n- UI - FEITO POR DK\n- T.C.C"})
 
 local Paragraph = InfoTab:AddParagraph({"discord", "- Support & dúvidas no server do T.C.C Oficial\n- Qalquer dúvidas chame por prdavi_73322 --> MENOR DK"})
 
