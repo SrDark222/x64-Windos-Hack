@@ -5,7 +5,7 @@ local Window = redzlib:MakeWindow({
 	SaveFolder = "pathv16.lua"
 })
 Window:AddMinimizeButton({
-    Button = { Image = "rbxassetid://10704761848", BackgroundTransparency = 0 },
+    Button = { Image = "rbxassetid://10704761835", BackgroundTransparency = 0 },
     Corner = { CornerRadius = UDim.new(0.4, 1) },
 })
 local PathTab = Window:MakeTab({"menu", "code2"})
