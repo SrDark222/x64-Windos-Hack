@@ -5,7 +5,7 @@ local Window = redzlib:MakeWindow({
 	SaveFolder = "pathv16.lua"
 })
 Window:AddMinimizeButton({Button = {Image = "rbxassetid://14041446096"}, Corner = {CornerRadius = UDim.new(0.3, 1)}})
-local PathTab = Window:MakeTab({"menu", "wifi"})
+local PathTab = Window:MakeTab({"menu", "code"})
 PathTab:AddSection({"OPCOES - PRINCIPAIS"})
 
 local Players = game:GetService("Players")
