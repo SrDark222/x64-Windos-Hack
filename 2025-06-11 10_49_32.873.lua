@@ -4,9 +4,18 @@ local Window = redzlib:MakeWindow({
 	SubTitle = "by DKZIN",
 	SaveFolder = "pathv16.lua"
 })
-Window:AddMinimizeButton({Button = {Image = "rbxassetid://14041446096"}, Corner = {CornerRadius = UDim.new(0.3, 1)}})
-local PathTab = Window:MakeTab({"menu", "code"})
-PathTab:AddSection({"OPCOES - PRINCIPAIS"})
+Window:AddMinimizeButton({
+	Button = {Image = "rbxassetid://14041446096"},
+	Corner = {CornerRadius = UDim.new(0.3, 1)}
+})
+
+local PathTab = Window:MakeTab({
+	Title = "menu",
+	Icon = "code"
+})
+PathTab:AddSection({
+	Title = "OPCOES - PRINCIPAIS"
+})
 
 local Players = game:GetService("Players")
 local PathfindingService = game:GetService("PathfindingService")
