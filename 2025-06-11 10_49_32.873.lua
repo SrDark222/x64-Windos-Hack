@@ -1,8 +1,8 @@
 local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SrDark222/SH_0001/refs/heads/main/inject%20R.Hub.lua"))()
 local Window = redzlib:MakeWindow({
-	Title = "T.C.C H4x V17",
+	Title = "T.C.C H4x V16",
 	SubTitle = "by DKZIN",
-	SaveFolder = "pathv17.lua"
+	SaveFolder = "pathv16.lua"
 })
 Window:AddMinimizeButton({Button = {Image = "rbxassetid://71014873973869"}, Corner = {CornerRadius = UDim.new(0.5, 1)}})
 local PathTab = Window:MakeTab({"menu", "wifi"})
@@ -83,23 +83,13 @@ local function resetChar()
 	local char = LocalPlayer.Character
 	if not char then return end
 	local hum = getHumanoid(char)
+	local root = getRoot(char)
 	if hum then
 		hum.WalkSpeed = 16
 		hum.AutoRotate = true
 		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
 	end
 	clearVisuals()
-end
-
-local function safeComputePath(rootPos, targetPos)
-	local path = PathfindingService:CreatePath({AgentRadius = 2, AgentHeight = 5, AgentCanJump = true})
-	local success, err = pcall(function()
-		path:ComputeAsync(rootPos, targetPos)
-	end)
-	if success and path.Status == Enum.PathStatus.Success then
-		return path
-	end
-	return nil
 end
 
 task.spawn(function()
@@ -121,12 +111,22 @@ task.spawn(function()
 		local bestPathWaypoints = nil
 
 		if following then
-			-- tenta achar o alvo pelo nome, tenta até conseguir
+			if targetName == nil or targetName == "" then
+				-- se nome alvo vazio, desliga o follow
+				following = false
+				hum.WalkSpeed = 16
+				hum.AutoRotate = true
+				clearVisuals()
+				continue
+			end
 			for _, p in pairs(Players:GetPlayers()) do
 				if p.Name:lower():find(targetName:lower()) and p ~= LocalPlayer and p.Character and getRoot(p.Character) then
 					local pRoot = getRoot(p.Character)
-					local path = safeComputePath(root.Position, pRoot.Position)
-					if path then
+					local path = PathfindingService:CreatePath({AgentRadius = 2, AgentHeight = 5, AgentCanJump = true})
+					local success, err = pcall(function()
+						path:ComputeAsync(root.Position, pRoot.Position)
+					end)
+					if success and path.Status == Enum.PathStatus.Success then
 						local wps = path:GetWaypoints()
 						local length = 0
 						for i = 1, #wps - 1 do
@@ -141,12 +141,14 @@ task.spawn(function()
 				end
 			end
 		elseif autoFollow then
-			-- tenta achar o mais perto pelo caminho real, tenta até conseguir
 			for _, p in pairs(Players:GetPlayers()) do
 				if p ~= LocalPlayer and p.Character and getRoot(p.Character) then
 					local pRoot = getRoot(p.Character)
-					local path = safeComputePath(root.Position, pRoot.Position)
-					if path then
+					local path = PathfindingService:CreatePath({AgentRadius = 2, AgentHeight = 5, AgentCanJump = true})
+					local success, err = pcall(function()
+						path:ComputeAsync(root.Position, pRoot.Position)
+					end)
+					if success and path.Status == Enum.PathStatus.Success then
 						local wps = path:GetWaypoints()
 						local length = 0
 						for i = 1, #wps - 1 do
@@ -171,13 +173,18 @@ task.spawn(function()
 				if not (following or autoFollow) then break end
 				if wp.Action == Enum.PathWaypointAction.Jump and tick() - lastJumpTime >= jumpCooldown then
 					lastJumpTime = tick()
-					hum:ChangeState(Enum.HumanoidStateType.Jumping)
+					local hum = getHumanoid(LocalPlayer.Character)
+					if hum then hum:ChangeState(Enum.HumanoidStateType.Jumping) end
 				end
-				local look = Vector3.new(wp.Position.X, root.Position.Y, wp.Position.Z)
-				if (look - root.Position).Magnitude > 5 then
-					pcall(function() root.CFrame = CFrame.lookAt(root.Position, look) end)
+				local char = LocalPlayer.Character
+				local root = getRoot(char)
+				if root then
+					local look = Vector3.new(wp.Position.X, root.Position.Y, wp.Position.Z)
+					if (look - root.Position).Magnitude > 5 then
+						pcall(function() root.CFrame = CFrame.lookAt(root.Position, look) end)
+					end
 				end
-				moveTo(hum, root, wp.Position)
+				moveTo(getHumanoid(LocalPlayer.Character), getRoot(LocalPlayer.Character), wp.Position)
 			end
 		else
 			clearVisuals()
@@ -226,8 +233,21 @@ PathTab:AddButton({
 })
 
 PathTab:AddToggle({Name = "SEGUIR ALVO SELECIONADO", Default = false, Callback = function(v)
-	following = v
-	if not v then
+	if v then
+		if targetName == nil or targetName == "" then
+			following = false
+			local hum = getHumanoid(LocalPlayer.Character)
+			if hum then
+				hum.WalkSpeed = 16
+				hum.AutoRotate = true
+			end
+			clearVisuals()
+			PathTab:SetToggle("SEGUIR ALVO SELECIONADO", false)
+		else
+			following = true
+		end
+	else
+		following = false
 		local hum = getHumanoid(LocalPlayer.Character)
 		if hum then
 			hum.WalkSpeed = 16
@@ -276,4 +296,30 @@ PathTab:AddToggle({
 			end
 		end
 	end
+})
+
+
+local InfoTab = Window:MakeTab({"info", "info"})
+-- Convite no topo, chamando a atenção dos cria
+InfoTab:AddSection("Convite Oficial")
+InfoTab:AddDiscordInvite({
+  Name = "T.C.C Hub",
+  Description = "Cola no servidor pra updates, ajuda e novidades",
+  Logo = "rbxassetid://18751483361",
+  Invite = "discord.gg/fjZRjEcpwV"
+})
+
+local Section = InfoTab:AddSection({"developers"})
+local Paragraph = InfoTab:AddParagraph({"CREDITOS", "- UI FEITA POR DK\n- CODIGO FEITO POR DK\n- T.C.C"})
+
+local Paragraph = InfoTab:AddParagraph({"discord", "- Support & dúvidas no server do T.C.C Oficial\n- Qalquer dúvidas chame por prdavi_73322 --> MENOR DK"})
+
+local Dialog = Window:Dialog({
+  Title = "Aviso",
+  Text = "Acesse nosso server do discord para mais scripts",
+  Options = {
+    {"ok", function()
+      
+    end},
+  }
 })
