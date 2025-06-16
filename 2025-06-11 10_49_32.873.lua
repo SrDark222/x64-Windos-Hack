@@ -4,7 +4,7 @@ local Window = redzlib:MakeWindow({
 	SubTitle = "by DKZIN",
 	SaveFolder = "pathv16.lua"
 })
-Window:AddMinimizeButton({Button = {Image = "rbxassetid://71014873973869"}, Corner = {CornerRadius = UDim.new(0.5, 1)}})
+Window:AddMinimizeButton({Button = {Image = "rbxassetid://14041446096"}, Corner = {CornerRadius = UDim.new(0.3, 1)}})
 local PathTab = Window:MakeTab({"menu", "wifi"})
 PathTab:AddSection({"OPCOES - PRINCIPAIS"})
 
