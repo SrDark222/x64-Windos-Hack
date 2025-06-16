@@ -5,8 +5,7 @@ local Window = redzlib:MakeWindow({
 	SaveFolder = "pathv16.lua"
 })
 Window:AddMinimizeButton({
-	Button = {Image = "rbxassetid://14041446096"},
-	Corner = {CornerRadius = UDim.new(0.3, 1)}
+	Button = "rbxassetid://14041446096"
 })
 
 local PathTab = Window:MakeTab({
